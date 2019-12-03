@@ -12,16 +12,21 @@ imports:
     name: network.py
 
 resources:
-  - name: acme-net-eur-prod
+  - name: test-network
     type: network.py
     properties:
       autoCreateSubnetworks: false
       subnetworks:
-        - name: west2-prod-network
-          region: europe-west2
-          ipCidrRange: 172.168.0.0/24
+        - name: test-subnetwork-1
+          region: us-east1
+          ipCidrRange: 10.0.0.0/24
           privateIpGoogleAccess: false
           enableFlowLogs: true
-        - name: west2-test-network
-          region: europe-west2
-          ipCidrRange: 192.168.2.0/24
+          secondaryIpRanges:
+            - rangeName: my-secondary-range-1
+              ipCidrRange: 10.0.1.0/24
+            - rangeName: my-secondary-range-2
+              ipCidrRange: 10.0.2.0/24
+        - name: test-subnetwork-2
+          region: us-east1
+          ipCidrRange: 192.168.0.0/24
