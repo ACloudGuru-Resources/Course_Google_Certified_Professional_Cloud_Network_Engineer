@@ -1,0 +1,32 @@
+# Example of the network template usage.
+#
+# In this example, a network is created. Subnetworks can be created
+# via the `subnetworks` property of the `network.py` template (such as 
+# test-subnetwork-1)
+#
+# Note that the `name` property of the `templates/network.py` resource type is
+# optional. If omitted, the DM resource name is used.
+
+imports:
+  - path: templates/network/network.py
+    name: network.py
+
+resources:
+  - name: acme-net-us-prod
+    type: network.py
+    properties:
+      autoCreateSubnetworks: false
+      subnetworks:
+        - name: east-prod-network
+          region: us-east1
+          ipCidrRange: 10.0.0.0/24
+          privateIpGoogleAccess: false
+          enableFlowLogs: true
+          secondaryIpRanges:
+            - rangeName: east-alias-ip-1
+              ipCidrRange: 10.10.1.0/24
+            - rangeName: east-alias-ip-2
+              ipCidrRange: 10.10.2.0/24
+        - name: east-test-network
+          region: us-east1
+          ipCidrRange: 192.168.0.0/24
