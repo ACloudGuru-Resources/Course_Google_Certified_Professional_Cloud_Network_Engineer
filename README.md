@@ -2,9 +2,9 @@ Google Certified Professional Cloud Network Engineer
 
 # Overview
 
-Organized to in to PCNE Chapter and subjects, these labs are for you to quickly deploy GCP network services for organizations both large and small.
+Organized by PCNE Chapter. In each folder are deployment manager templates that have been created for you Network Specialist to deploy GCP network services.  
 
- - These template deployment files are modified versions of the Cloud Foundation Toolkit Project. 
+ - These template deployment files are modified versions from the Cloud Foundation Toolkit Project. 
     - https://github.com/GoogleCloudPlatform/cloud-foundation-toolkit
  - The files are made up of two parts:
     - source Python files located in the templates directory
