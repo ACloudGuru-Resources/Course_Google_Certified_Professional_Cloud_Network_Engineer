@@ -19,7 +19,7 @@ resources:
       subnetworks:
         - name: west2-prod-network
           region: europe-west2
-          ipCidrRange: 172.168.0.0/24
+          ipCidrRange: 172.16.0.0/24
           privateIpGoogleAccess: false
           enableFlowLogs: true
         - name: west2-test-network
