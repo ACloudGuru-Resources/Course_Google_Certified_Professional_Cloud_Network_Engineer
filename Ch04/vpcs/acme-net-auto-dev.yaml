@@ -1,0 +1,19 @@
+# Example of the network template usage.
+#
+# In this example, a network is created. Subnetworks can be created
+# via the `subnetworks` property of the `network.py` template (such as 
+# test-subnetwork-1)
+#
+# Note that the `name` property of the `templates/network.py` resource type is
+# optional. If omitted, the DM resource name is used.
+
+imports:
+  - path: templates/network/network.py
+    name: network.py
+
+resources:
+  - name: acme-net-auto-dev
+    type: network.py
+    properties:
+      autoCreateSubnetworks: true
+   
