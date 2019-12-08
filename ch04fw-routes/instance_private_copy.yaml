@@ -1,0 +1,26 @@
+# Example on the Instance template usage.
+#
+# In this example, a Ubuntu 18.04 Compute Instance with Nginx is created.
+
+imports:
+  - path: templates/instance/instance.py
+    name: instance.py
+
+resources:
+  - name: test-instance
+    type: instance.py
+    properties:
+      zone: us-east1-b
+      diskImage: projects/ubuntu-os-cloud/global/images/family/ubuntu-1804-lts
+      machineType: f1-micro
+      diskType: pd-ssd
+      networks:
+        - network: acme-net-us-prod
+          subnetwork: https://www.googleapis.com/compute/v1/projects/acme-space-research/regions/us-east1/subnetworks/east-prod-network
+      metadata:
+        items:
+          - key: startup-script
+            value: sudo apt-get update && sudo apt-get install -y nginx
+      tags:
+        items:
+          - your-tag
