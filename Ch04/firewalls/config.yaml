@@ -1,0 +1,113 @@
+# The import statement defines all the templates that you want to use in your configuration.
+imports:
+- path: autonetwork-template.jinja
+- path: customnetwork-template.jinja
+- path: subnetwork-template.jinja
+- path: firewall-template.jinja
+- path: instance-template.jinja
+# Now that you defined your templates, you need to define all the resources that you want to create from these templates.
+resources:
+# Add mynetwork
+- name: mynetwork
+  type: autonetwork-template.jinja
+# Add a firewall rule to allow HTTP, SSH and RDP traffic on mynetwork
+- name: mynetwork-allow-http-ssh-rdp
+  type: firewall-template.jinja
+  properties:
+    network: $(ref.mynetwork.selfLink)
+    IPProtocol: TCP
+    Port: [22, 80, 3389]
+# Add a firewall rule to allow ICMP traffic on mynetwork
+- name: mynetwork-allow-icmp
+  type: firewall-template.jinja
+  properties:
+    network: $(ref.mynetwork.selfLink)
+    IPProtocol: ICMP
+    Port: []
+# configure the managementnet custom-mode network with its subnetwork and firewall rules
+- name: managementnet
+  type: customnetwork-template.jinja
+# Add the subnetwork for managementnet
+- name: managementsubnet-us
+  type: subnetwork-template.jinja
+  properties:
+    ipCidrRange: 10.130.0.0/20
+    network: $(ref.managementnet.selfLink)
+    region: us-central1
+# Add a firewall rule to allow HTTP, SSH and RDP traffic
+- name: managementnet-allow-http-ssh-rdp
+  type: firewall-template.jinja
+  properties:
+    network: $(ref.managementnet.selfLink)
+    IPProtocol: TCP
+    Port: [22, 80, 3389]
+# Add a firewall rule to allow HTTP, SSH and RDP traffic
+- name: managementnet-allow-icmp
+  type: firewall-template.jinja
+  properties:
+    network: $(ref.managementnet.selfLink)
+    IPProtocol: ICMP
+    Port: []
+# configure the privatenet custom-mode network with its subnetworks and firewall rules
+- name: privatenet
+  type: customnetwork-template.jinja
+# Add the subnetwork for privatenet
+- name: privatesubnet-us
+  type: subnetwork-template.jinja
+  properties:
+    ipCidrRange: 172.16.0.0/24
+    network: $(ref.privatenet.selfLink)
+    region: us-central1
+# Add another subnetwork for privatenet
+- name: privatesubnet-eu
+  type: subnetwork-template.jinja
+  properties:
+    ipCidrRange: 172.20.0.0/24
+    network: $(ref.privatenet.selfLink)
+    region: europe-west1
+# Add a firewall rule to allow HTTP, SSH and RDP traffic on privatenet
+- name: privatenet-allow-http-ssh-rdp
+  type: firewall-template.jinja
+  properties:
+    network: $(ref.privatenet.selfLink)
+    IPProtocol: TCP
+    Port: [22, 80, 3389]
+# Add a firewall rule to allow ICMP traffic on privatenet
+- name: privatenet-allow-icmp
+  type: firewall-template.jinja
+  properties:
+    network: $(ref.privatenet.selfLink)
+    IPProtocol: ICMP
+    Port: []
+# Add the mynet-us-vm instance
+- name: mynet-us-vm
+  type: instance-template.jinja
+  properties:
+    zone: us-central1-a
+    machineType: n1-standard-1
+    network: $(ref.mynetwork.selfLink)
+    subnetwork: regions/us-central1/subnetworks/mynetwork
+# Add the mynet-eu-vm instance
+- name: mynet-eu-vm
+  type: instance-template.jinja
+  properties:
+    zone: europe-west1-d
+    machineType: n1-standard-1
+    network: $(ref.mynetwork.selfLink)  
+    subnetwork: regions/europe-west1/subnetworks/mynetwork
+# Add the privatenet-us-vm
+- name: privatenet-us-vm
+  type: instance-template.jinja
+  properties:
+    zone: us-central1-a
+    machineType: n1-standard-1
+    network: $(ref.privatenet.selfLink)
+    subnetwork: $(ref.privatesubnet-us.selfLink)
+# Add the managementnet-us-vm instance
+- name: managementnet-us-vm
+  type: instance-template.jinja
+  properties:
+    zone: us-central1-a
+    machineType: n1-standard-1
+    network: $(ref.managementnet.selfLink)
+    subnetwork: $(ref.managementsubnet-us.selfLink)
