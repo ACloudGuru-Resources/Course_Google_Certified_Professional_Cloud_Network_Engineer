@@ -10,20 +10,6 @@ resources:
 # Add acme-dev-network
 - name: acme-dev-network
   type: autonetwork-template.jinja
-# Add a firewall rule to allow HTTP, SSH and RDP traffic on acme-dev-network
-- name: acme-dev-network-allow-http-ssh
-  type: firewall-template.jinja
-  properties:
-    network: $(ref.acme-dev-network.selfLink)
-    IPProtocol: TCP
-    Port: [22, 80]
-# Add a firewall rule to allow ICMP traffic on acme-dev-network
-- name: acme-dev-network-allow-icmp
-  type: firewall-template.jinja
-  properties:
-    network: $(ref.acme-dev-network.selfLink)
-    IPProtocol: ICMP
-    Port: []
 # configure the acme-net-us-prod custom-mode network with its subnetwork and firewall rules
 - name: acme-net-us-prod
   type: customnetwork-template.jinja
@@ -41,20 +27,6 @@ resources:
     ipCidrRange: 192.168.1.0/24
     network: $(ref.acme-net-us-prod.selfLink)
     region: us-east1
-# Add a firewall rule to allow HTTP, SSH and RDP traffic
-- name: acme-net-us-prod-allow-http-ssh
-  type: firewall-template.jinja
-  properties:
-    network: $(ref.acme-net-us-prod.selfLink)
-    IPProtocol: TCP
-    Port: [22, 80]
-# Add a firewall rule to allow HTTP, SSH and RDP traffic
-- name: acme-net-us-prod-allow-icmp
-  type: firewall-template.jinja
-  properties:
-    network: $(ref.acme-net-us-prod.selfLink)
-    IPProtocol: ICMP
-    Port: []
 # configure the acme-net-eur-prod custom-mode network with its subnetworks and firewall rules
 - name: acme-net-eur-prod
   type: customnetwork-template.jinja
@@ -72,20 +44,6 @@ resources:
     ipCidrRange: 192.168.2.0/24
     network: $(ref.acme-net-eur-prod.selfLink)
     region: europe-west2
-# Add a firewall rule to allow HTTP, SSH and RDP traffic on acme-net-eur-prod
-- name: acme-net-eur-prod-allow-http-ssh
-  type: firewall-template.jinja
-  properties:
-    network: $(ref.acme-net-eur-prod.selfLink)
-    IPProtocol: TCP
-    Port: [22, 80]
-# Add a firewall rule to allow ICMP traffic on acme-net-eur-prod
-- name: acme-net-eur-prod-allow-icmp
-  type: firewall-template.jinja
-  properties:
-    network: $(ref.acme-net-eur-prod.selfLink)
-    IPProtocol: ICMP
-    Port: []
 # Add the mynet-us-vm instance
 - name: acme-auto-dev-us
   type: instance-template.jinja
