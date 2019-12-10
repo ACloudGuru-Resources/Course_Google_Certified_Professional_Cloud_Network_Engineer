@@ -1,0 +1,78 @@
+# The import statement defines all the templates that you want to use in your configuration.
+imports:
+- path: autonetwork-template.jinja
+- path: customnetwork-template.jinja
+- path: subnetwork-template.jinja
+- path: firewall-template.jinja
+- path: instance-template.jinja
+# Now that you defined your templates, you need to define all the resources that you want to create from these templates.
+resources:
+# Add acme-dev-network
+- name: acme-dev-network
+  type: autonetwork-template.jinja
+# configure the acme-net-us-prod custom-mode network with its subnetwork and firewall rules
+- name: acme-net-us-prod
+  type: customnetwork-template.jinja
+# Add the subnetwork for acme-net-us-prod
+- name: east-prod-network
+  type: subnetwork-template.jinja
+  properties:
+    ipCidrRange: 10.10.0.0/24
+    network: $(ref.acme-net-us-prod.selfLink)
+    region: us-east1
+ # Add the test subnetwork for acme-net-us-prod
+- name: east-test-network
+  type: subnetwork-template.jinja
+  properties:
+    ipCidrRange: 192.168.1.0/24
+    network: $(ref.acme-net-us-prod.selfLink)
+    region: us-east1
+# configure the acme-net-eur-prod custom-mode network with its subnetworks and firewall rules
+- name: acme-net-eur-prod
+  type: customnetwork-template.jinja
+# Add the subnetwork for acme-net-eur-prod
+- name: west2-prod-network
+  type: subnetwork-template.jinja
+  properties:
+    ipCidrRange: 172.16.0.0/24
+    network: $(ref.acme-net-eur-prod.selfLink)
+    region: europe-west2
+# Add another subnetwork for acme-net-eur-prod
+- name: west2-test-network
+  type: subnetwork-template.jinja
+  properties:
+    ipCidrRange: 192.168.2.0/24
+    network: $(ref.acme-net-eur-prod.selfLink)
+    region: europe-west2
+# Add the mynet-us-vm instance
+- name: acme-auto-dev-us
+  type: instance-template.jinja
+  properties:
+    zone: us-east1-b
+    machineType: n1-standard-1
+    network: $(ref.acme-dev-network.selfLink)
+    subnetwork: regions/us-east1/subnetworks/acme-dev-network
+# Add the mynet-eu-vm instance
+- name: acme-auto-dev-eur
+  type: instance-template.jinja
+  properties:
+    zone: europe-west2-b
+    machineType: n1-standard-1
+    network: $(ref.acme-dev-network.selfLink)  
+    subnetwork: regions/europe-west2/subnetworks/acme-dev-network
+# Add the acme-net-eur-prod-us-vm
+- name: acme-prod-us-vm
+  type: instance-template.jinja
+  properties:
+    zone: us-east1-b
+    machineType: n1-standard-1
+    network: $(ref.acme-net-us-prod.selfLink)
+    subnetwork: $(ref.east-prod-network.selfLink)
+# Add the acme-net-us-prod-us-vm instance
+- name: acme-prod-eur-vm
+  type: instance-template.jinja
+  properties:
+    zone: europe-west2-b
+    machineType: n1-standard-1
+    network: $(ref.acme-net-eur-prod.selfLink)
+    subnetwork: $(ref.west2-prod-network.selfLink)

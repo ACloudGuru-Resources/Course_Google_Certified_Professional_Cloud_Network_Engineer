@@ -18,5 +18,5 @@ resources:
     properties:
       name: acme-us-eur-peer
       network: acme-net-eur-prod
-      peerNetwork: projects/68942374420/global/networks/acme-net-us-prod
+      peerNetwork: projects/398491092140/global/networks/acme-net-us-prod
       autoCreateRoutes: true
