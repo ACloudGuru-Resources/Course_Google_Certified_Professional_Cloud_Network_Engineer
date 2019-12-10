@@ -1,12 +1,12 @@
-# dmnet
-Creating a Deployment Manager configuration along with templates to automate the deployment of a custom network. Specifically, you deploy 3 networks with firewall rules and VM instances as shown in this network diagram: ![diagram](https://cdn.qwiklabs.com/LsNKpKCFyxHoRat4u5n7JV42%2Fuf00CsElX4wIalRCUg%3D).Performing the following tasks:
+# FW rules lab
+acme.yaml
+deploy 3 networks, two custom, one automode, 4 vm instances, 
 
-- Create a template for a auto-mode network
+config.yaml
+deploy 3 networks, two custom, one automode, 4 vm instances,  and firewall rules
 
-- Create a template for a custom-mode network
+acme-prod-fw.yaml
+deploys firewall rules to allow tcp ports (80,443) to the us-prod and eur-prod created with acme.yaml
 
-- Create a template for firewall rules
-
-- Create a template for VM instances
-
-- Create and deploy a configuration
+acme-dev-fw.yaml
+deploys firewall rules to allow tcp ports (22,80) + icmp to the auto-dev-network created with acme.yaml
