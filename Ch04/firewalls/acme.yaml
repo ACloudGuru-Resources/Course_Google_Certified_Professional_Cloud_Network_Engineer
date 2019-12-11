@@ -17,7 +17,7 @@ resources:
 - name: east-prod-network
   type: subnetwork-template.jinja
   properties:
-    ipCidrRange: 10.10.0.0/24
+    ipCidrRange: 10.0.0.0/24
     network: $(ref.acme-net-us-prod.selfLink)
     region: us-east1
  # Add the test subnetwork for acme-net-us-prod
