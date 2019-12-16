@@ -1,23 +1,25 @@
 # The import statement defines all the templates that you want to use in your configuration.
 imports:
 - path: firewall-template.jinja
+- path: firewall-template-i.jinja
+- path: firewall-template-l.jinja
 # Now that you defined your templates, you need to define all the resources that you want to create from these templates.
 resources:
-# Add a firewall rule to allow HTTP, HTTPS traffic
+# Add a firewall rule to allow ICMP on internal network acme-net-us-prod
 - name: acme-net-us-prod-allow-icmp
-  type: firewall-template.jinja
+  type: firewall-template-l.jinja
   properties:
     network: https://www.googleapis.com/compute/v1/projects/acme-dev-research/global/networks/acme-net-us-prod
     IPProtocol: ICMP
     Port: []
-# Add a firewall rule to allow HTTP, HTTPS traffic on acme-net-eur-prod
+# Add a firewall rule to allow ICMP traffic on acme-net-eur-prod
 - name: acme-net-eur-prod-allow-icmp
-  type: firewall-template.jinja
+  type: firewall-template-i.jinja
   properties:
     network: https://www.googleapis.com/compute/v1/projects/acme-dev-research/global/networks/acme-net-eur-prod
     IPProtocol: ICMP
     Port: []
-# Add a firewall rule to allow HTTP, SSH and RDP traffic on acme-dev-network
+# Add a firewall rule to allow HTTP, SSH traffic on acme-dev-network
 - name: acme-dev-network-allow-http-ssh
   type: firewall-template.jinja
   properties:
@@ -31,7 +33,7 @@ resources:
     network: https://www.googleapis.com/compute/v1/projects/acme-dev-research/global/networks/acme-dev-network
     IPProtocol: ICMP
     Port: []
-    # Add a firewall rule to allow HTTP, HTTPS traffic
+    # Add a firewall rule to allow ssh on acme-net-us-prod
 - name: acme-net-us-prod-allow-ssh
   type: firewall-template.jinja
   properties:
