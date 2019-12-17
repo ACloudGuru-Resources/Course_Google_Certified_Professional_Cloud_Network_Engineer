@@ -19,12 +19,12 @@ imports:
     name: vpn.py
 
 resources:
-  - name: test-vpn
+  - name: acme-us-eur-vpn
     type: vpn.py
     properties:
       region: us-east1
-      network: <FIXME:network-name>
-      peerAddress: 1.2.3.4
-      asn: 65001
+      network: acme-net-us-prod
+      peerAddress: 35.189.117.25
+      asn: 4200000001
       sharedSecret: superSecretPassw0rd
-      router: <FIXME:cloud-router-name>
+      router: us-cloud-router
