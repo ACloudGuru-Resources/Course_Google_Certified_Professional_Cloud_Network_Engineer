@@ -12,12 +12,12 @@ imports:
     name: external_load_balancer.py
 
 resources:
-  - name: example-http-elb
+  - name: acme-http-elb
     type: external_load_balancer.py
     properties:
       portRange: 80
       backendServices:
-        - resourceName: default-backend-service
+        - resourceName: acme-backend-service
           sessionAffinity: GENERATED_COOKIE
           affinityCookieTtlSec: 1000
           portName: http

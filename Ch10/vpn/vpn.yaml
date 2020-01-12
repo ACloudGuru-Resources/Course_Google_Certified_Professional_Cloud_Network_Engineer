@@ -24,7 +24,7 @@ resources:
     properties:
       region: us-east1
       network: acme-net-us-prod
-      peerAddress: 35.230.151.71
+      peerAddress: 34.89.95.132
       asn: 4200000001
       sharedSecret: superSecretPassw0rd
       router: us-cloud-router
