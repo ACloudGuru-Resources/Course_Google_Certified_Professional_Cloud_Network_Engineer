@@ -17,16 +17,16 @@ resources:
     properties:
       autoCreateSubnetworks: false
       subnetworks:
-        - name: east1-prod-network
+        - name: east -prod-network
           region: us-east1
           ipCidrRange: 10.0.0.0/24
           privateIpGoogleAccess: false
           enableFlowLogs: true
           secondaryIpRanges:
-            - rangeName: east1-alias-ip-1
+            - rangeName: east-alias-ip-1
               ipCidrRange: 10.10.1.0/24
-            - rangeName: east1-alias-ip-2
+            - rangeName: east-alias-ip-2
               ipCidrRange: 10.10.2.0/24
-        - name: east1-test-network
+        - name: east-test-network
           region: us-east1
           ipCidrRange: 192.168.0.0/24
