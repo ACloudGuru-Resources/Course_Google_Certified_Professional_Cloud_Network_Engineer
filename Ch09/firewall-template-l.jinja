@@ -1,0 +1,9 @@
+resources:
+- name: {{ env["name"] }}
+  type: compute.v1.firewall
+  properties:
+    network: {{ properties["network"] }}
+    sourceRanges: ["172.16.0.0/24"]
+    allowed:
+    - IPProtocol: {{ properties["IPProtocol"] }}
+      ports: {{ properties["Port"] }}
