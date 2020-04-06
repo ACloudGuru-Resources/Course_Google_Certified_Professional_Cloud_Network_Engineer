@@ -14,14 +14,14 @@ resources:
 - name: acme-net-us-prod
   type: customnetwork-template.jinja
 # Add the subnetwork for acme-net-us-prod
-- name: east-prod-network
+- name: east1-prod-network
   type: subnetwork-template.jinja
   properties:
     ipCidrRange: 10.0.0.0/24
     network: $(ref.acme-net-us-prod.selfLink)
     region: us-east1
  # Add the test subnetwork for acme-net-us-prod
-- name: east-test-network
+- name: east1-test-network
   type: subnetwork-template.jinja
   properties:
     ipCidrRange: 192.168.1.0/24
