@@ -3,17 +3,17 @@ imports:
 - path: firewall-template.jinja
 # Now that you defined your templates, you need to define all the resources that you want to create from these templates.
 resources:
-# Add a firewall rule to allow HTTP, SSH and RDP traffic on acme-dev-network
+# Add a firewall rule to allow HTTP, and SSH  traffic on acme-dev-network
 - name: acme-dev-network-allow-http-ssh
   type: firewall-template.jinja
   properties:
-    network: https://www.googleapis.com/compute/v1/projects/acme-dev-research/global/networks/acme-dev-network
+    network: https://www.googleapis.com/compute/v1/projects/acme-dev-research/global/networks/acme-net-auto-dev
     IPProtocol: TCP
     Port: [22, 80]
 # Add a firewall rule to allow ICMP traffic on acme-dev-network
 - name: acme-dev-network-allow-icmp
   type: firewall-template.jinja
   properties:
-    network: https://www.googleapis.com/compute/v1/projects/acme-dev-research/global/networks/acme-dev-network
+    network: https://www.googleapis.com/compute/v1/projects/acme-dev-research/global/networks/acme-net-auto-dev
     IPProtocol: ICMP
     Port: []
