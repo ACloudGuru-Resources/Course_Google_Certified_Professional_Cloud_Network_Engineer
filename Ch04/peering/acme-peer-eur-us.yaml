@@ -13,10 +13,10 @@ imports:
     name: peering.py
 
 resources:
-  - name: acme-us-eur-peer
+  - name: acme-eur-us-peer
     type: peering.py
     properties:
       name: acme-us-eur-peer
       network: acme-net-eur-prod
-      peerNetwork: projects/398491092140/global/networks/acme-net-us-prod
+      peerNetwork: projects/571474663557/global/networks/acme-net-us-prod
       autoCreateRoutes: true
